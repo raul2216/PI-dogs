@@ -1,34 +1,50 @@
+const { getDogs, createDog, findDogs, getById } = require('../controllers/controllers')
 
-const getDogs = (req, res) => {
+const handlerGetDogs = async (req, res) => {
     // const { Url } = req
-    const { name } = req.query
 
-    if (name) {
-        res.status(200).json(`este es el query solicitado: ${name}`)
+    const { nombre } = req.query
+    let Dogs;
+    try {
+        if (nombre) Dogs = await findDogs(nombre)
+        else Dogs = await getDogs()
+        res.status(201).json(Dogs)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 
-    } else {
-        console.log(req.baseUrl, req.url)
-        return res.status(200).send("Esta ruta pide un arreglo de información")
+
+const handlerGetIdDogs = async (req, res) => {
+
+    const { id } = req.params
+    try {
+        const Dog = await getById(id)
+        res.status(200).json(Dog)
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+
+
+}
+
+
+const handlerPostDogs = async (req, res) => {
+
+    try {
+
+        const { imagen, nombre, altura, peso, temperamentos, añosDeVida } = req.body
+        const newDog = await createDog(imagen, nombre, altura, peso, temperamentos, añosDeVida)
+        res.status(201).json(newDog)
+
+    } catch (error) {
+
+        res.status(400).json({ error: error.message })
+
     }
 
 }
 
 
-const getIdDogs = (req, res) => {
-    const { id } = req.params
 
-    res.status(200).send(`me estan mandando el id: ${id}`)
-
-}
-
-
-const postDogs = (req, res) => {
-    const { id, image, name, altura, peso, temperamentos, añosDeViDA } = req.body
-
-    res.status(200).json({ id, image, nombre, altura, peso, temperamentos, añosDeViDA })
-
-}
-
-
-
-module.exports = { getDogs, getIdDogs, postDogs }
+module.exports = { handlerGetDogs, handlerGetIdDogs, handlerPostDogs }

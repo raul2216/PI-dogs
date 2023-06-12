@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 55]
+        len: [3, 55]
       }
     },
     imagen: {
@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
         max: 100
       }
     },
-    aniosDeVida: {
+    añosDeVida: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {

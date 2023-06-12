@@ -1,22 +1,21 @@
 const { DataTypes, UUIDV4 } = require("sequelize")
 
 
-module.exports = (sequelize) =>{
+module.exports = (sequelize) => {
 
-sequelize.define("temperaments", {
+   sequelize.define("temperaments", {
 
- id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  
+      id: {
+         type: DataTypes.UUID,
+         defaultValue: DataTypes.UUIDV4,
+         primaryKey: true,
+         // autoIncrement: true,
+      },
+      nombre: {
+         type: DataTypes.STRING,
+         allowNull: false
+      }
 
- },
- nombre: {
-    type: DataTypes.STRING,
-    allowNull: false
- }
 
-
-},{timestamps: false})
+   }, { timestamps: false })
 }

@@ -1,16 +1,16 @@
 const express = require("express");
-const router = express.Router();
-const { getDogs, getIdDogs, postDogs } = require("../handlers/handlersDogs")
+const dogRouter = express.Router();
+const { handlerGetDogs, handlerGetIdDogs, handlerPostDogs } = require("../handlers/handlersDogs")
 
-router
-    .get("/", getDogs)
-
-
-    .get("/:id", getIdDogs)
+dogRouter
+    .get("/", handlerGetDogs)
 
 
-    .post("/", postDogs )
+    .get("/:id", handlerGetIdDogs)
 
 
-module.exports = router
+    .post("/", handlerPostDogs )
+
+
+module.exports = dogRouter
 
