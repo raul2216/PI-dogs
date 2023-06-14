@@ -6,10 +6,12 @@ module.exports = (sequelize) => {
    sequelize.define("temperaments", {
 
       id: {
-         type: DataTypes.UUID,
-         defaultValue: DataTypes.UUIDV4,
+         type: DataTypes.INTEGER,
+         autoIncrement: true,
          primaryKey: true,
-         // autoIncrement: true,
+         allowNull: false
+
+         
       },
       nombre: {
          type: DataTypes.STRING,
