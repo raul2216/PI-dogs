@@ -1,27 +1,34 @@
 const { Temperaments } = require('../db')
 const axios = require('axios')
 const { YOUR_API_KEY } = process.env
-
+const URL = 'https://api.thedogapi.com/v1/breeds/'
 
 const getTemperaments = async () => {
 
-    const temperApiRaw = (await axios.get(`https://api.thedogapi.com/v1/breeds/`, {
+    const temperApiRaw = (await axios.get(`${URL}`, {
         headers: {
           'x-api-key': YOUR_API_KEY
         }
       })).data;
       
-      const temperApi = temperApiRaw.map(ele => ele.temperament);
-      const temperamentsArray = temperApi.join("").split(",").map(temperamento => temperamento.trim());
-      
-      const uniqueTemperamentsArray = temperamentsArray.filter((value, index) => {
-        return temperamentsArray.findIndex((item) => item.includes(value)) === index;
-      });
-
+      const temperApi = temperApiRaw.map(ele => ele.temperament).join(", ").split(", ")
+      // const temperamentsArray = temperApi.map(temperamento => temperamento); 
+      // const uniqueTemperamentsArray = temperApi.filter((value, index) => {
+      //   return  temperApi.findIndex((item) => item.includes(value)) === index;
+      // });
+      // const createdTemperaments = await Promise.all(
+      //   uniqueTemperamentsArray.map(nombre => Temperaments.create({ nombre }))
+      // )
+      const uniqueTemperamentsArray = new Set(temperApi)
+      const uniqueTemp = [...uniqueTemperamentsArray]
 
       const createdTemperaments = await Promise.all(
-        uniqueTemperamentsArray.map(nombre => Temperaments.create({ nombre }))
-      )
+          uniqueTemp.map(nombre => Temperaments.create({ nombre }))
+        )
+
+      console.log(createdTemperaments)
+
+     
 
       return createdTemperaments
 
