@@ -19,11 +19,11 @@ const getTemperaments = async () => {
       // const createdTemperaments = await Promise.all(
       //   uniqueTemperamentsArray.map(nombre => Temperaments.create({ nombre }))
       // )
-      const uniqueTemperamentsArray = new Set(temperApi)
-      const uniqueTemp = [...uniqueTemperamentsArray]
+      const uniqueTemp = new Set(temperApi)
+      const uniqueTempArray = [...uniqueTemperamentsArray]
 
       const createdTemperaments = await Promise.all(
-          uniqueTemp.map(nombre => Temperaments.create({ nombre }))
+          uniqueTempArray.map(nombre => Temperaments.create({ nombre }))
         )
 
       console.log(createdTemperaments)
